@@ -38,6 +38,32 @@ async function run() {
       res.send(result);
     });
 
+    app.post("/items", async (req, res) => {
+      const item = req.body;
+      const result = await items.insertOne(item);
+
+      res.send(result);
+    });
+
+    app.put("/items/:id", async (req, res) => {
+      const id = req.params.id;
+      const item = req.body;
+
+      const filter = { _id: new ObjectId(id) };
+      /* Set the upsert option to insert a document if no documents match
+      the filter */
+      const options = { upsert: true };
+
+      const updateItem = {
+        $set: {
+          name: item.name,
+        },
+      };
+
+      const result = await movies.updateOne(filter, updateItem, options);
+      res.send(result);
+    });
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
