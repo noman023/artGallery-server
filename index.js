@@ -40,6 +40,7 @@ async function run() {
 
     app.post("/items", async (req, res) => {
       const item = req.body;
+      item.createdAt = new Date();
       const result = await items.insertOne(item);
 
       res.send(result);
