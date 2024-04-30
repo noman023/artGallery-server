@@ -27,8 +27,8 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
 
-    const database = client.db("assignment10");
-    git;
+    const database = client.db("artGallery");
+
     const items = database.collection("items");
 
     app.get("/items", async (req, res) => {
