@@ -58,6 +58,20 @@ async function run() {
       const id = req.params.id;
       const item = req.body;
 
+      const {
+        itemImg,
+        itemName,
+        category,
+        description,
+        price,
+        rating,
+        customization,
+        processing_time,
+        stockStatus,
+        name,
+        email,
+      } = item;
+
       const filter = { _id: new ObjectId(id) };
       /* Set the upsert option to insert a document if no documents match
       the filter */
@@ -65,11 +79,21 @@ async function run() {
 
       const updateItem = {
         $set: {
-          name: item.name,
+          itemImg,
+          itemName,
+          category,
+          description,
+          price,
+          rating,
+          customization,
+          processing_time,
+          stockStatus,
+          name,
+          email,
         },
       };
 
-      const result = await movies.updateOne(filter, updateItem, options);
+      const result = await items.updateOne(filter, updateItem, options);
       res.send(result);
     });
 
